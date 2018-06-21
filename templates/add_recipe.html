@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"><a href="{% url 'home' %}"> Recipes </a></li>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h2>Add recipe</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+  </div>
+{% endblock %}

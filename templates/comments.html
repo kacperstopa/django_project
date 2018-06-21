@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"><a href="{% url 'home' %}"> Recipes </a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'recipe' recipe.pk %}"> {{ recipe.name }} </a></li>
+    <li class="breadcrumb-item active"><a> Comments </a></li>
+{% endblock %}
+
+{% block content %}
+
+  <div class="mb-4">
+    <a href="{% url 'add_comment' recipe.pk %}" class="btn btn-primary" role="button">Add new comment</a>
+  </div>
+
+  {% for comment in recipe.comments.all %}
+    <div class="card mb-2">
+      <div class="card-body p-3">
+        <div class="row">
+          <div class="col-2">
+            <a href="{% url 'user_recipes' comment.created_by %}">{{ comment.created_by.username }}<br></a>
+            <small>comments: {{ comment.created_by.comments.count }}<br></small>
+            <small>recipes: {{ comment.created_by.recipes.count }}</small>
+          </div>
+          <div class="col-10">
+            <div class="row mb-3">
+              <div class="col-6">
+                <strong class="text-muted">{{ comment.topic }}</strong>
+              </div>
+            </div>
+            {{ comment.message }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+{% endblock %}

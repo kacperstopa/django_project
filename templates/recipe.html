@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"><a href="{% url 'home' %}"> Recipes </a></li>
+    <li class="breadcrumb-item active">{{ recipe.name }}</li>
+{% endblock %}
+
+{% block content %}
+    <h1> {{ recipe.name }}<br><br></h1>
+    <h4>Description:<br></h4><a>{{ recipe.description }}<br><br></a>
+    <h4>Hardness: </h4><a>{{ recipe.hardness }}/5 <br><br></a>
+    <h4>Time: </h4><a> {{ recipe.minutes }} minutes<br><br></a>
+    <small><a>Created by: {{ recipe.created_by }} <br></a></small>
+    <small><a>Created at: {{ recipe.created_at }} <br></a></small>
+    <a href="{% url 'comments' recipe.pk %}" class="btn btn-primary btn-lg">Comments</a>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"><a>{{ user.username }}'s recipes</a></li>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <li>
+            <a href="{% url 'add' %}" class="btn btn-primary" role="button">Add new recipe</a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'home' %}" class="btn btn-primary" role="button">Show all</a>
+            {% endif %}
+        </li>
+    </div>
+
+    <table class="table">
+        <thead class="thead-inverse">
+        <tr>
+            <th>Recipes</th>
+            <th>Hardness</th>
+            <th>Time</th>
+            <th>Created by</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for recipe in recipes %}
+            <tr>
+                <td>
+                    <a href="{% url 'recipe' recipe.pk %}">{{ recipe.name }}</a>
+                </td>
+                <td>
+                    <a>{{ recipe.hardness }}</a>
+                </td>
+                <td>
+                    <a>{{ recipe.minutes }}</a>
+                </td>
+                <td>
+                    <a>{{ recipe.created_by }}</a>
+                </td>
+                {% if recipe.created_by == request.user %}
+                    <td>
+                        <a href="{% url 'delete' recipe.pk %}" class="btn btn-primary" role="button">Delete</a>
+                    </td>
+                {% endif %}
+                <td></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
